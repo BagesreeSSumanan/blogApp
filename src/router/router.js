@@ -1,6 +1,6 @@
  const express = require('express');
  const router = express.Router();
-const {insertUser,loginUser,insertBlog}= require('../controller/controller');
+const {insertUser,loginUser}= require('../controller/controller');
 const {userValidationRules,validate,insertBlog} =require('../validation/validator')
 const {verifyToken,isAdmin,isModerator} =require('../middlewares/tokenverification')
 
