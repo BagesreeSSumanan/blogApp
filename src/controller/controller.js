@@ -4,6 +4,8 @@ const config = require('../config/config')
 const bcrypt=require('bcrypt');  
 const jwt = require("jsonwebtoken");
 const jwtexpiry =12000;
+const logger = require('../logger/logger');
+
 async function  insertUser(req, res) {
   const {email, password, roles} = req.body;
   await User.create({
@@ -22,7 +24,7 @@ async function  insertUser(req, res) {
 
 async function loginUser(req, res) {
   const { email, password } = req.body;
- console.log(email,password);
+ logger.info(email,password);
   try {
     // Find the user by email
     const user = await User.findOne({ email: email });
@@ -60,7 +62,7 @@ async function loginUser(req, res) {
       accessToken: token,
     });
   } catch (err) {
-    console.error(err);
+    logger.info(err);
     res.status(500).send({ message: err.message });
   }
 }

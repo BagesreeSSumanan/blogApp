@@ -5,8 +5,8 @@ const User = require('../models/user');
  
 const verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"]
-  console.log("secretkey",config.secretkey);
-  console.log("t",token);
+  logger.info("secretkey",config.secretkey);
+  logger.info("t",token);
   if (!token) {
     return res.status(403).send({
       message: "No token provided!"
@@ -22,7 +22,7 @@ const verifyToken = (req, res, next) => {
                 });
               }
               req.userId = decoded.id;
-              console.log("decoded",decoded.id);
+              logger.info("decoded",decoded.id);
               next();
             });
 };
