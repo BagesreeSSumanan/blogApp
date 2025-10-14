@@ -1,5 +1,6 @@
 
-const User = require('../models/user')
+const User = require('../models/user');
+const Blog = require('../models/blog');
 const config = require('../config/config')
 const bcrypt=require('bcrypt');  
 const jwt = require("jsonwebtoken");
@@ -66,4 +67,24 @@ async function loginUser(req, res) {
     res.status(500).send({ message: err.message });
   }
 }
-module.exports = { insertUser,loginUser};
+
+async function insertBlog(req, res) {
+  try {
+    const { title, content } = req.body;
+
+    // ✅ Here you can access the user ID from the token
+    const userId = req.userId;
+
+    const blog = new Blog({
+      title,
+      content,
+      author: userId   // store userId as reference
+    });
+
+    await blog.save();
+    res.status(201).json({ message: 'Blog created successfully', blog });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+module.exports = { insertUser,loginUser,insertBlog};

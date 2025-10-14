@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 const User = require('../models/user');
- 
- 
+const logger =require('../logger/logger')
+
 const verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"]
   logger.info("secretkey",config.secretkey);
@@ -26,3 +26,7 @@ const verifyToken = (req, res, next) => {
               next();
             });
 };
+module.exports = {
+   verifyToken
+};
+ 
