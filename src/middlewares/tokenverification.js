@@ -26,7 +26,18 @@ const verifyToken = (req, res, next) => {
               next();
             });
 };
-module.exports = {
-   verifyToken
+const isAdmin = async (req, res, next) => {
+  console.log("is admin------")
+  const user = await User.findById(req.userId);
+  if (!user) return res.status(404).send({ message: "User not found." });
+    if (user.role == "admin") {
+      next();
+    } else {
+      res.status(403).send({ message: "Require Admin Role!" });
+    }
 };
+module.exports = {
+   verifyToken,isAdmin
+};
+
  
