@@ -25,8 +25,10 @@ const connectToDB = async() =>{
     }
 
 }
-connectToDB();
-
-app.listen(port,()=>{
- logger.info(`Example app listening on port ${port}`);
-});
+const startServer = async () => {
+  await connectToDB(); // wait for DB connection before starting server
+  app.listen(port, () => {
+    logger.info(`Server listening on port ${port}`);
+  });
+};
+startServer();

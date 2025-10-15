@@ -174,3 +174,8 @@
 2025-10-15 11:20:20 [32minfo[39m: secretkey
 2025-10-15 11:20:20 [32minfo[39m: t
 2025-10-15 11:20:20 [32minfo[39m: decoded
+2025-10-15 11:20:39 [32minfo[39m: Example app listening on port 3000
+2025-10-15 11:20:39 [32minfo[39m: connected to mongoDB
+2025-10-15 11:20:45 [32minfo[39m: secretkey
+2025-10-15 11:20:45 [32minfo[39m: t
+2025-10-15 11:20:45 [32minfo[39m: decoded
