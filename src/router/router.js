@@ -1,7 +1,7 @@
  const express = require('express');
  const router = express.Router();
 const {insertUser,loginUser}= require('../controller/Usercontroller');
-const {insertBlog,getAllBlogsWithComments}= require('../controller/BlogController');
+const {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs}= require('../controller/BlogController');
 const {insertComment}= require('../controller/CommentController');
 const {userValidationRules,validate,} =require('../validation/validator')
 const {verifyToken,isAdmin} =require('../middlewares/tokenverification')
@@ -11,4 +11,6 @@ router.get("/loginUser", userValidationRules(),validate,loginUser);
 router.post("/inserBlog", verifyToken,insertBlog);
 router.post("/insertComment", verifyToken,insertComment);
 router.get("/getAllBlogsWithComments", verifyToken,isAdmin,getAllBlogsWithComments);
- module.exports = router;
+router.get("/getcurrentUserBlogs", verifyToken,getcurrentUserBlogs);
+
+module.exports = router;

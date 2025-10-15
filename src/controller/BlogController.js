@@ -1,6 +1,7 @@
 const Blog = require('../models/blog');
 const Comment = require('../models/comments');
 const logger = require('../logger/logger');
+const mongoose = require('mongoose');
 
 async function insertBlog(req, res) {
   try {
@@ -39,9 +40,37 @@ const getAllBlogsWithComments = async (req, res) => {
 
     return res.status(200).json({ Blogs: blogsWithComments });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
+    return res.status(500).json({ msg: "Unable to fetch blogs"});
+  }
+};
+const getcurrentUserBlogs = async (req, res) => {
+  try {
+   const currentUserId = new mongoose.Types.ObjectId(req.userId);
+    logger.info(currentUserId);
+    const blogsWithComments = await Blog.aggregate([
+      {
+        $match: { author: currentUserId } // only blogs of current user
+      },
+      {
+        $lookup: {
+          from: 'comments',         
+          localField: '_id',        
+          foreignField: 'BlogId',  
+          as: 'comments'           
+        }
+      }
+    ]);
+
+    if (!blogsWithComments || blogsWithComments.length === 0) {
+      return res.status(404).json({ msg: "No blogs found" });
+    }
+
+    return res.status(200).json({ Blogs: blogsWithComments });
+  } catch (error) {
+    logger.error(error);
     return res.status(500).json({ msg: "Unable to fetch blogs"});
   }
 };
 
-module.exports = {insertBlog,getAllBlogsWithComments};
+module.exports = {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs};
