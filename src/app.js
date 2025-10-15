@@ -1,6 +1,5 @@
 const express = require('express');
-const mongoos = require('mongoose');
-const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const config = require('./config/config');
 const logger = require('./logger/logger');
 
@@ -10,13 +9,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const Contact = require('./router/router');
- const PORT = config.port;
- const ConnectionString = config.ConnectionString;
-logger.info("ConnectionString",ConnectionString);
+const { port, ConnectionString } = config;
  app.use('/api', Contact)
 const connectToDB = async() =>{
     try{
-        await mongoos.connect(ConnectionString,{
+        await mongoose.connect(ConnectionString,{
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
@@ -30,7 +27,6 @@ const connectToDB = async() =>{
 }
 connectToDB();
 
-const port = PORT;
 app.listen(port,()=>{
  logger.info(`Example app listening on port ${port}`);
 });
