@@ -22,24 +22,26 @@ async function insertBlog(req, res) {
 }
 const getAllBlogsWithComments = async (req, res) => {
   try {
-    const blogs = await Blog.find().lean();
+    const blogsWithComments = await Blog.aggregate([
+      {
+        $lookup: {
+          from: 'comments',         
+          localField: '_id',        
+          foreignField: 'BlogId',  
+          as: 'comments'           
+        }
+      }
+    ]);
 
-    if ( blogs.length === 0) {
+    if (!blogsWithComments || blogsWithComments.length === 0) {
       return res.status(404).json({ msg: "No blogs found" });
     }
 
-    for (let blog of blogs) {
-      const comments = await Comment.find({ BlogId: blog._id })
-        .select('CommentText userId createdAt BlogId')
-        .lean();
-
-      blog.comments = comments; 
-    }
-
-    return res.status(200).json({Blogs: blogs });
+    return res.status(200).json({ Blogs: blogsWithComments });
   } catch (error) {
-    logger.error(error);
-    return res.status(500).json({ msg: "Unable to fetch blogs" });
+    console.error(error);
+    return res.status(500).json({ msg: "Unable to fetch blogs"});
   }
 };
+
 module.exports = {insertBlog,getAllBlogsWithComments};
