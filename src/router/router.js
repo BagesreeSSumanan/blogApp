@@ -10,5 +10,5 @@ router.post("/insertUser", userValidationRules(),validate,insertUser);
 router.get("/loginUser", userValidationRules(),validate,loginUser);
 router.post("/inserBlog", verifyToken,insertBlog);
 router.post("/insertComment", verifyToken,insertComment);
-router.post("/getAllBlogsWithComments", verifyToken,getAllBlogsWithComments);
+router.get("/getAllBlogsWithComments", verifyToken,getAllBlogsWithComments);
  module.exports = router;

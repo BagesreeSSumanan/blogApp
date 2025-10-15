@@ -20,18 +20,26 @@ async function insertBlog(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
-
-async function getAllBlogsWithComments(req, res) {
+const getAllBlogsWithComments = async (req, res) => {
   try {
+    const blogs = await Blog.find().lean();
 
-    const blogs = await Blog.find().lean(); 
+    if ( blogs.length === 0) {
+      return res.status(404).json({ msg: "No blogs found" });
+    }
 
+    for (let blog of blogs) {
+      const comments = await Comment.find({ BlogId: blog._id })
+        .select('CommentText userId createdAt BlogId')
+        .lean();
 
-    res.status(200).json({ blogs: blogs });
-  } catch (err) {
-    logger.error(err);
-    res.status(500).json({ error: err.message });
+      blog.comments = comments; 
+    }
+
+    return res.status(200).json({Blogs: blogs });
+  } catch (error) {
+    logger.error(error);
+    return res.status(500).json({ msg: "Unable to fetch blogs" });
   }
-}
-
+};
 module.exports = {insertBlog,getAllBlogsWithComments};
