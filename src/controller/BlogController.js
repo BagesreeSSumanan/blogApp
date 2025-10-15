@@ -1,4 +1,5 @@
 const Blog = require('../models/blog');
+const Comment = require('../models/comments');
 const logger = require('../logger/logger');
 
 async function insertBlog(req, res) {
@@ -19,4 +20,18 @@ async function insertBlog(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
-module.exports = {insertBlog};
+
+async function getAllBlogsWithComments(req, res) {
+  try {
+
+    const blogs = await Blog.find().lean(); 
+
+
+    res.status(200).json({ blogs: blogs });
+  } catch (err) {
+    logger.error(err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = {insertBlog,getAllBlogsWithComments};
