@@ -1,7 +1,8 @@
 
 const User = require('../models/user');
 const Blog = require('../models/blog');
-const config = require('../config/config')
+const Comment = require('../models/comments');
+const config = require('../config/config');
 const bcrypt=require('bcrypt');  
 const jwt = require("jsonwebtoken");
 const jwtexpiry =12000;
@@ -87,4 +88,29 @@ async function insertBlog(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
-module.exports = { insertUser,loginUser,insertBlog};
+async function insertComment(req, res) {
+  try {
+    const { CommentText, BlogId } = req.body;
+    const userId = req.userId;
+
+    const blog = await Blog.findById(BlogId);
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+
+    const comment = new Comment({
+      userId: userId,
+      CommentText: CommentText,
+      BlogId :BlogId
+    });
+
+    await comment.save();
+
+    res.status(201).json({ message: 'Comment added successfully', blog });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = { insertUser,loginUser,insertBlog,insertComment};
