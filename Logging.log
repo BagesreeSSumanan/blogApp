@@ -179,3 +179,31 @@
 2025-10-15 11:20:45 [32minfo[39m: secretkey
 2025-10-15 11:20:45 [32minfo[39m: t
 2025-10-15 11:20:45 [32minfo[39m: decoded
+2025-10-15 11:35:36 [32minfo[39m: connected to mongoDB
+2025-10-15 11:35:36 [32minfo[39m: Server listening on port 3000
+2025-10-15 11:35:51 [32minfo[39m: secretkey
+2025-10-15 11:35:51 [32minfo[39m: t
+2025-10-15 11:35:51 [32minfo[39m: decoded
+2025-10-15 11:38:59 [32minfo[39m: secretkey
+2025-10-15 11:38:59 [32minfo[39m: t
+2025-10-15 11:38:59 [32minfo[39m: decoded
+2025-10-15 13:00:34 [32minfo[39m: connected to mongoDB
+2025-10-15 13:00:34 [32minfo[39m: connected to mongoDB
+2025-10-15 13:00:34 [32minfo[39m: Server listening on port 3000
+2025-10-15 13:00:34 [32minfo[39m: Server listening on port 3000
+2025-10-15 13:04:28 [32minfo[39m: secretkey
+2025-10-15 13:04:28 [32minfo[39m: t
+2025-10-15 13:04:28 [32minfo[39m: decoded
+2025-10-15 13:04:35 [32minfo[39m: secretkey
+2025-10-15 13:04:35 [32minfo[39m: t
+2025-10-15 13:04:35 [32minfo[39m: decoded
+2025-10-15 13:20:10 [32minfo[39m: secretkey
+2025-10-15 13:20:10 [32minfo[39m: t
+2025-10-15 13:20:10 [32minfo[39m: decoded
+2025-10-15 13:21:07 [32minfo[39m: connected to mongoDB
+2025-10-15 13:21:07 [32minfo[39m: connected to mongoDB
+2025-10-15 13:21:07 [32minfo[39m: Server listening on port 3000
+2025-10-15 13:21:07 [32minfo[39m: Server listening on port 3000
+2025-10-15 13:21:11 [32minfo[39m: secretkey
+2025-10-15 13:21:11 [32minfo[39m: t
+2025-10-15 13:21:11 [32minfo[39m: decoded

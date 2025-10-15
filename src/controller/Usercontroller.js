@@ -69,48 +69,4 @@ async function loginUser(req, res) {
   }
 }
 
-async function insertBlog(req, res) {
-  try {
-    const { title, content } = req.body;
-
-    // ✅ Here you can access the user ID from the token
-    const userId = req.userId;
-
-    const blog = new Blog({
-      title,
-      content,
-      author: userId   // store userId as reference
-    });
-
-    await blog.save();
-    res.status(201).json({ message: 'Blog created successfully', blog });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-}
-async function insertComment(req, res) {
-  try {
-    const { CommentText, BlogId } = req.body;
-    const userId = req.userId;
-
-    const blog = await Blog.findById(BlogId);
-    if (!blog) {
-      return res.status(404).json({ message: 'Blog not found' });
-    }
-
-
-    const comment = new Comment({
-      userId: userId,
-      CommentText: CommentText,
-      BlogId :BlogId
-    });
-
-    await comment.save();
-
-    res.status(201).json({ message: 'Comment added successfully', blog });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-}
-
-module.exports = { insertUser,loginUser,insertBlog,insertComment};
+module.exports = { insertUser,loginUser,};
