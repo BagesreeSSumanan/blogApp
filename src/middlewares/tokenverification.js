@@ -5,8 +5,6 @@ const logger =require('../logger/logger')
 
 const verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"]
-  logger.info("secretkey",config.secretkey);
-  logger.info("t",token);
   if (!token) {
     return res.status(403).send({
       message: "No token provided!"
@@ -22,7 +20,6 @@ const verifyToken = (req, res, next) => {
                 });
               }
               req.userId = decoded.id;
-              logger.info("decoded",decoded.id);
               next();
             });
 };
