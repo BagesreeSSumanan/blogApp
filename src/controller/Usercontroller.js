@@ -5,6 +5,7 @@ const bcrypt=require('bcrypt');
 const jwt = require("jsonwebtoken");
 const jwtexpiry =12000;
 const logger = require('../logger/logger');
+const Follow = require('../models/follower');
 
 async function  insertUser(req, res) {
   const {email, password, roles} = req.body;
@@ -67,4 +68,21 @@ async function loginUser(req, res) {
   }
 }
 
-module.exports = { insertUser,loginUser,};
+async function insertFollower(req, res) {
+  try {
+   const follower = req.userId;                 
+   const following = req.body.followingId;     
+
+  const follow = new Follow({
+    followingId: following, 
+    followerId: follower   
+  });
+
+  await follow.save();
+  res.status(201).json({ msg: "User followed successfully" });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+module.exports = { insertUser,loginUser,insertFollower};
