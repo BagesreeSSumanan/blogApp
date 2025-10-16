@@ -826,3 +826,18 @@ Use mongoose.model(name, schema)
 2025-10-16 11:37:48 [32minfo[39m: 68ee31fbdb3634ed93b612cf
 2025-10-16 11:37:48 [32minfo[39m: 68ee31fbdb3634ed93b612cf
 2025-10-16 11:37:48 [32minfo[39m: true
+2025-10-16 11:41:21 [32minfo[39m: connected to mongoDB
+2025-10-16 11:41:21 [32minfo[39m: Server listening on port 3000
+2025-10-16 11:41:31 [32minfo[39m: secretkey
+2025-10-16 11:41:31 [32minfo[39m: t
+2025-10-16 11:41:31 [32minfo[39m: decoded
+2025-10-16 11:41:42 [32minfo[39m: secretkey
+2025-10-16 11:41:42 [32minfo[39m: t
+2025-10-16 11:41:42 [32minfo[39m: decoded
+2025-10-16 11:42:04 [32minfo[39m: secretkey
+2025-10-16 11:42:04 [32minfo[39m: t
+2025-10-16 11:42:04 [32minfo[39m: decoded
+2025-10-16 11:42:04 [32minfo[39m: 68f08c93351a6a29b051c5ac
+2025-10-16 11:42:04 [32minfo[39m: 68ee31fbdb3634ed93b612cf
+2025-10-16 11:42:04 [32minfo[39m: 68ee31fbdb3634ed93b612cf
+2025-10-16 11:42:04 [32minfo[39m: true
