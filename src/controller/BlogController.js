@@ -74,18 +74,14 @@ const getcurrentUserBlogs = async (req, res) => {
   }
 };
 
-const DeleteBlog = async (req, res) => {
+const deleteBlog = async (req, res) => {
   try {
     const blogId = req.params.id;
     const currentUserId = new mongoose.Types.ObjectId(req.userId);
-    logger.info(blogId)
-    logger.info(currentUserId)
     const blog = await Blog.findById(blogId);
     if (!blog) {
       return res.status(404).json({ msg: "Blog not found" });
     }
-    logger.info(blog.author);
-    logger.info(blog.author != currentUserId)
     if (!blog.author.equals(currentUserId)) {
         return res.status(403).json({ msg: "You are not authorized to delete this blog" });
         }
@@ -102,4 +98,4 @@ const DeleteBlog = async (req, res) => {
   }
 };
 
-module.exports = {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs,DeleteBlog};
+module.exports = {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs,deleteBlog};
