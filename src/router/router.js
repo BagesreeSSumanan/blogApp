@@ -1,7 +1,7 @@
  const express = require('express');
  const router = express.Router();
 const {insertUser,loginUser}= require('../controller/Usercontroller');
-const {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs,deleteBlog}= require('../controller/BlogController');
+const {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs,deleteBlog,updateBlog}= require('../controller/BlogController');
 const {insertComment}= require('../controller/CommentController');
 const {userValidationRules,validate,} =require('../validation/validator')
 const { commentValidator } = require('../validation/CommentValidation');
@@ -15,5 +15,6 @@ router.post("/insertComment", verifyToken,commentValidator,insertComment);
 router.get("/getAllBlogsWithComments", verifyToken,isAdmin,getAllBlogsWithComments);
 router.get("/getcurrentUserBlogs", verifyToken,getcurrentUserBlogs);
 router.delete("/DeleteBlog/:id", verifyToken,deleteBlog);
+router.put("/updateBlog/:id", verifyToken,blogValidationRules(),validateBlog,updateBlog);
 
 module.exports = router;

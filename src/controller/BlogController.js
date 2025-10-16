@@ -97,5 +97,35 @@ const deleteBlog = async (req, res) => {
     res.status(500).json({ msg: "Something went wrong", error: error.message });
   }
 };
+const updateBlog = async (req, res) => {
+  try {
+    const blogId = req.params.id;
+    const currentUserId = new mongoose.Types.ObjectId(req.userId);
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      return res.status(404).json({ msg: "Blog not found" });
+    }
+    if (!blog.author.equals(currentUserId)) {
+        return res.status(403).json({ msg: "You are not authorized to delete this blog" });
+        }
+     const updatedData = {};
+    if (req.body.title) updatedData.title = req.body.title;
+    if (req.body.content) updatedData.content = req.body.content;
 
-module.exports = {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs,deleteBlog};
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      blogId,
+      { $set: updatedData },
+      { new: true } // returns the updated document
+    );
+
+    res.status(200).json({
+      msg: "Blog updated successfully",
+      data: updatedBlog
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Something went wrong", error: error.message });
+  }
+};
+
+module.exports = {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs,deleteBlog,updateBlog};
