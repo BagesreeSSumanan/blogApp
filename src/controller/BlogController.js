@@ -2,6 +2,7 @@ const Blog = require('../models/blog');
 const Comment = require('../models/comments');
 const logger = require('../logger/logger');
 const mongoose = require('mongoose');
+const comments = require('../models/comments');
 
 async function insertBlog(req, res) {
   try {
@@ -73,4 +74,32 @@ const getcurrentUserBlogs = async (req, res) => {
   }
 };
 
-module.exports = {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs};
+const DeleteBlog = async (req, res) => {
+  try {
+    const blogId = req.params.id;
+    const currentUserId = new mongoose.Types.ObjectId(req.userId);
+    logger.info(blogId)
+    logger.info(currentUserId)
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      return res.status(404).json({ msg: "Blog not found" });
+    }
+    logger.info(blog.author);
+    logger.info(blog.author != currentUserId)
+    if (!blog.author.equals(currentUserId)) {
+        return res.status(403).json({ msg: "You are not authorized to delete this blog" });
+        }
+    const deleteBlog = await Blog.findByIdAndDelete(blogId, { useFindAndModify: false });
+    await Comment.deleteMany({ BlogId: blogId });
+
+    res.status(200).json({
+      msg: "Blog and associated Comment deleted successfully",
+      data: deleteBlog
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Something went wrong", error: error.message });
+  }
+};
+
+module.exports = {insertBlog,getAllBlogsWithComments,getcurrentUserBlogs,DeleteBlog};
