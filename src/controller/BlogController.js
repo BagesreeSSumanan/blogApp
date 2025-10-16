@@ -93,7 +93,7 @@ const deleteBlog = async (req, res) => {
       data: deleteBlog
     });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).json({ msg: "Something went wrong", error: error.message });
   }
 };
@@ -123,7 +123,7 @@ const updateBlog = async (req, res) => {
       data: updatedBlog
     });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).json({ msg: "Something went wrong", error: error.message });
   }
 };
